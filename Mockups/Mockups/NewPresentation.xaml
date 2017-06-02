@@ -3,7 +3,7 @@
         xmlns:data="clr-namespace:Mockups.DataStore"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"       
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
         xmlns:local="clr-namespace:Mockups"
@@ -11,42 +11,57 @@
         Title="New Presentation"
         Height="450"
         Width="800"
-        ResizeMode="NoResize" Icon="Resources/Document-50.png" Topmost="True">
+        ResizeMode="NoResize"
+        Icon="Resources/Document-50.png"
+        Topmost="True">
 
     <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <TabControl x:Name="TemplateGroupControl" Grid.Row="0" ItemsSource="{x:Static data:TemplateCollection.AllGroups}" IsSynchronizedWithCurrentItem="True">
+        <TabControl x:Name="TemplateGroupControl"
+                    Grid.Row="0"
+                    ItemsSource="{x:Static data:TemplateCollection.AllGroups}"
+                    IsSynchronizedWithCurrentItem="True">
             <TabControl.ItemTemplate>
                 <DataTemplate>
-                    <TextBlock Text="{Binding GroupName}"/>
+                    <TextBlock Text="{Binding GroupName}" />
                 </DataTemplate>
             </TabControl.ItemTemplate>
             <TabControl.ContentTemplate>
                 <DataTemplate>
-                    <ScrollViewer VerticalScrollBarVisibility="Auto" CanContentScroll="True">
-                        <ListView ItemsSource="{Binding Previews}" IsTextSearchEnabled="True" TextSearch.TextPath="{Binding Name}" Background="White">
+                    <ScrollViewer VerticalScrollBarVisibility="Auto"
+                                  CanContentScroll="True">
+                        <ListView ItemsSource="{Binding Previews}"
+                                  IsTextSearchEnabled="True"
+                                  TextSearch.TextPath="{Binding Name}"
+                                  Background="White">
                             <ListView.ItemTemplate>
                                 <DataTemplate>
-                                    <VirtualizingStackPanel Tag="{Binding ID}" Orientation="Vertical">
-                                        <Image Source="{Binding Image}" Width="100" Height="100" />
-                                        <Label Content="{Binding Name}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+                                    <VirtualizingStackPanel Tag="{Binding ID}"
+                                                            Orientation="Vertical">
+                                        <Image Source="{Binding Image}"
+                                               Width="100"
+                                               Height="100" />
+                                        <Label Content="{Binding Name}"
+                                               HorizontalContentAlignment="Center"
+                                               VerticalContentAlignment="Center" />
                                     </VirtualizingStackPanel>
                                 </DataTemplate>
                             </ListView.ItemTemplate>
                             <ListView.ItemContainerStyle>
                                 <Style TargetType="ListViewItem">
                                     <Setter Property="HorizontalContentAlignment"
-                                            Value="Center"/>
+                                            Value="Center" />
                                     <Setter Property="VerticalContentAlignment"
-                                            Value="Center"/>
+                                            Value="Center" />
                                 </Style>
                             </ListView.ItemContainerStyle>
                             <ListView.ItemsPanel>
-                                <ItemsPanelTemplate>
-                                    <UniformGrid Columns="5" />
+                                <ItemsPanelTemplate x:Name="ItemsPanelTemplate">
+                                    <UniformGrid x:Name="ContentUniformGrid"
+                                                 Columns="{Binding Value, ElementName=ElementSlider, Mode=OneWay}" />
                                 </ItemsPanelTemplate>
                             </ListView.ItemsPanel>
                         </ListView>
@@ -61,16 +76,32 @@
                 </TextBlock>
             </Image.ToolTip>
         </Image>
-        <Label Grid.Row="1" VerticalAlignment="Bottom" HorizontalAlignment="Center" Content="Icon Credits" Opacity=".5">
+        <Label Grid.Row="1"
+               VerticalAlignment="Bottom"
+               HorizontalAlignment="Center"
+               Content="Icon Credits"
+               Opacity=".5">
             <Label.ToolTip>
                 <TextBlock>
                     Document Icon:  https://icons8.com/icon/47743/Document
-                    <LineBreak/>
+                    <LineBreak />
                     Info Icon:  https://icons8.com/icon/3156/info
                 </TextBlock>
             </Label.ToolTip>
         </Label>
-        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="10 10 0 0">
+        <StackPanel Grid.Row="1"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Bottom"
+                    Margin="10 10 0 0">
+            <Slider x:Name="ElementSlider"
+                    Grid.Row="1"
+                    HorizontalAlignment="Right" Width="120" Margin="0 00 10 0"
+                    Maximum="5"
+                    Minimum="1"
+                    SmallChange="1"
+                    Value="5"
+                    IsSnapToTickEnabled="True" />
             <Button x:Name="OK" Content="OK" Width="60" Margin="0 0 10 0" Click="Escape_Click"/>
             <Button x:Name="Close" Content="Close" Width="60" Click="Escape_Click"/>
         </StackPanel>
